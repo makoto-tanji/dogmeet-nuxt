@@ -54,20 +54,7 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    theme: {
-      themes: {
-        light: {
-          primary: "#32F032",
-          accent: "#cddc39",
-          secondary: "32C832",
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-          background: "DCDCDC",
-        }
-      }
-    }
+    
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -2,7 +2,6 @@
   <v-container>
     <h1>home</h1>
     <p>{{$axios.defaults.baseURL}}</p>
-    <p>{{dogList}}</p>
     <div class="card-container">
       <v-row>
         <v-col
@@ -12,6 +11,7 @@
           sm=6
           md=3
         >
+          <DogCard :dogData=dog />
         </v-col>
       </v-row>
     </div>
@@ -37,7 +37,7 @@ export default {
   methods: {
     async getDogs() {
       const resData = await this.$axios.get(
-        `${this.$axios.defaults.baseURL}/dog`
+        `${this.$axios.defaults.baseURL}api/dog`
       );
       this.dogList = resData.data.dogData;
     }
