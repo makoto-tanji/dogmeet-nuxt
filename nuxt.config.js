@@ -89,4 +89,9 @@ export default {
       },
     },
   },
+
+  // 以下env追加
+  env: {
+    apiURL: process.env.API_URL || 'http://localhost:8000/'
+  },
 }
