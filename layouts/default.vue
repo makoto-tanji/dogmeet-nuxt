@@ -56,10 +56,8 @@
   </v-app>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-  name: 'DefaultLayout',
+<script>
+export default{
   data() {
     return {
       clipped: true,
@@ -68,7 +66,7 @@ export default Vue.extend({
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Home',
           to: '/'
         },
         {
@@ -80,6 +78,6 @@ export default Vue.extend({
       miniVariant: false,
       title: 'DogMeet'
     }
-  }
-})
+  }, //end data
+}
 </script>
