@@ -57,6 +57,7 @@ export default {
       name: null,
       email: null,
       password: null,
+      error: '',
 
       valid: true,
       nameRules: [
