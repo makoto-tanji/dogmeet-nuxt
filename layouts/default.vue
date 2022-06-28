@@ -8,9 +8,28 @@
       fixed
       app
     >
-      <v-list>
+      <v-list v-if="!$store.state.auth.loggedIn">
         <v-list-item
           v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title
+              v-text="item.title"
+              class="white--text"
+            />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list v-else>
+        <v-list-item
+          v-for="(item, i) in itemsLogined"
           :key="i"
           :to="item.to"
           router
@@ -36,6 +55,13 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-spacer />
+      <v-toolbar-title
+        v-if="$store.state.auth.loggedIn"
+        class="white--text text-md-h6"
+      >
+        ようこそ　{{ $auth.user.name }}さん
+      </v-toolbar-title>
       <v-spacer />
       <v-toolbar-title
         v-text="title"
@@ -70,11 +96,6 @@ export default{
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        },
-        {
           icon: 'mdi-account-plus',
           title: 'Register',
           to: '/register'
@@ -83,6 +104,23 @@ export default{
           icon: 'mdi-login',
           title: 'Login',
           to: '/login'
+        }
+      ],
+      itemsLogined: [
+        {
+          icon: 'mdi-apps',
+          title: 'Home',
+          to: '/'
+        },
+        {
+          icon: 'mdi-account',
+          title: 'Mypage',
+          to: '/mypage'
+        },
+        {
+          icon: 'mdi-logout',
+          title: 'Logout',
+          to: '/logout'
         }
       ],
       miniVariant: false,
