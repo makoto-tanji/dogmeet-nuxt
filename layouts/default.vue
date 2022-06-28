@@ -45,6 +45,7 @@
             />
           </v-list-item-content>
         </v-list-item>
+        <LogoutComponent />
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -117,11 +118,6 @@ export default{
           title: 'Mypage',
           to: '/mypage'
         },
-        {
-          icon: 'mdi-logout',
-          title: 'Logout',
-          to: '/logout'
-        }
       ],
       miniVariant: false,
       title: 'DogMeet'
