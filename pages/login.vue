@@ -5,17 +5,6 @@
       v-model="valid"
     >
     <v-text-field
-      v-model="name"
-      :rules="nameRules"
-      label="Username"
-      placeholder="Username"
-      counter="191"
-      maxlength="191"
-      required
-      dense
-      prepend-icon="mdi-account"
-    />
-    <v-text-field
       v-model="email"
       :rules="emailRules"
       label="Email"
@@ -39,9 +28,9 @@
     <v-btn
       :disabled="!valid"
       color="primary"
-      @click="register"
+      @click="login"
     >
-      登録
+      ログイン
     </v-btn>
     </v-form>
   </v-container>
@@ -59,11 +48,6 @@ export default {
       password: null,
 
       valid: true,
-      nameRules: [
-        (v) => {
-          return (v) ? true : 'お名前を入力してください';
-        }
-      ],
       emailRules: [
         (v) => {
           return (v) ? true : 'メールアドレスを入力してください';
@@ -89,26 +73,20 @@ export default {
   }, //end filters
 
   methods: {
-    // 新規登録
-    async register() {
-      console.log(this.$refs.form.validate());
+    // ログイン
+    async login() {
       try {
-        await this.$axios.post(
-          `${this.$axios.defaults.baseURL}api/auth/register`, {
-            name: this.name,
+        await this.$auth.loginWith("laravelJWT", {
+          data: {
             email: this.email,
             password: this.password,
-          }
-        );
-        this.$reuter.push('/thanks');
-      } catch(error) {
-        alert(
-          ( (error.response.data.error.name)? `${error.response.data.error.name}\n` : '')
-          + ( (error.response.data.error.email)? `${error.response.data.error.email}\n` : '')
-          + ( (error.response.data.error.password)? `${error.response.data.error.password}\n` : '')
-        );
+          },
+        });
+        this.$router.push("/");
+      } catch {
+        alert("メールアドレスまたはパスワードが間違っております");
       }
-    },
+    }
   }, //end methods
 
   created() {

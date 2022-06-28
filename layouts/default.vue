@@ -74,6 +74,16 @@ export default{
           title: 'Inspire',
           to: '/inspire'
         },
+        {
+          icon: 'mdi-account-plus',
+          title: 'Register',
+          to: '/register'
+        },
+        {
+          icon: 'mdi-login',
+          title: 'Login',
+          to: '/login'
+        }
       ],
       miniVariant: false,
       title: 'DogMeet'
