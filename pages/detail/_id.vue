@@ -3,7 +3,7 @@
     <p>{{dogData}}</p>
     <v-row>
       <v-col>
-        <img
+        <v-img
           :src="`${$axios.defaults.baseURL}${dogData.thumbnail_path}`"
           alt="thumbnail"
           width="280px"
