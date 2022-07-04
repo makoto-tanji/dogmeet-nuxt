@@ -55,7 +55,7 @@ export default {
         await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/favorite`, sendFavoriteData);
 
         // フロント側に反映
-        this.$store.commit('updateFaoriteDog', {
+        this.$store.commit('updateFavoriteDog', {
           index: this.dogId,
           boolean: true
         });
@@ -68,14 +68,14 @@ export default {
         alert('再度ログインしてください')
       } else {
         const removeFavoriteData = {
-          dogId: dogId,
+          dogId: this.dogId,
           userId: this.$auth.user.id
         };
         await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/favorite/destroy`, removeFavoriteData);
 
         // フロント側に反映
-        this.$store.commit('updateFaoriteDog', {
-          index: dogId,
+        this.$store.commit('updateFavoriteDog', {
+          index: this.dogId,
           boolean: false
         });
       }

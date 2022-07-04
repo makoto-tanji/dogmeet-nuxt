@@ -40,7 +40,7 @@ export default {
           await this.$auth.logout();
 
           // Vuex内のデータ破棄
-          this.$store.commit('removeFavoriteDog');
+          this.$store.commit('deleteFavoriteDog');
 
           this.$router.push("/login");
         } catch (error) {
