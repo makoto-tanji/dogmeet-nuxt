@@ -67,16 +67,24 @@
         </table>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <CalendarComponent :schedules=schedule :dogId="dogData.id" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
+import CalendarComponent from '../../components/CalendarComponent.vue';
 export default {
+  components: { CalendarComponent },
   // middleware: 'auth'
 
   data() {
     return {
       dogData: {},
+      schedule: {},
     }
   }, //end data
 
@@ -131,7 +139,8 @@ export default {
       `${app.$axios.defaults.baseURL}api/dog/${params.id}`
     )
     return {
-      dogData: resData.data.dogResData[0]
+      dogData: resData.data.dogResData[0],
+      schedule: resData.data.dogResData[0].dog_schedule
     }
   },
 
