@@ -82,6 +82,19 @@ export default {
             password: this.password,
           },
         });
+
+        // お気に入りをvuexで保存
+        const userData = await this.$axios.get(
+          `${this.$axios.defaults.baseURL}api/auth/user`
+        );
+        const favoriteList = userData.data.favorites;
+        for(let i=0; i<favoriteList.length; i++) {
+          this.$store.commit('updateFavoriteDog', {
+            index: favoriteList[i].id,
+            boolean: true
+          })
+        }
+
         this.$router.push("/");
       } catch {
         alert("メールアドレスまたはパスワードが間違っております");

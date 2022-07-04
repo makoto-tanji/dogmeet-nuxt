@@ -20,7 +20,9 @@
         <div class="btn-container d-flex">
           <NuxtLink :to="`/detail/${dogData.id}`">more</NuxtLink>
           <v-spacer />
-          <p>like</p>
+          <div>
+            <FavoriteComponent :dogId="dogData.id"/>
+          </div>
         </div>
       </v-card-text>
     </v-card>

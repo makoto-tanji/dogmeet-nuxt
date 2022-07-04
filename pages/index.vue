@@ -2,6 +2,7 @@
   <v-container>
     <h1>home</h1>
     <p>{{$axios.defaults.baseURL}}</p>
+    <p>{{$store.state.favoriteDogList}}</p>
     <div class="card-container">
       <v-row>
         <v-col

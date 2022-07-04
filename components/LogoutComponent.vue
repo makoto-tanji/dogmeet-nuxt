@@ -38,6 +38,10 @@ export default {
       if(logoutConfirmation) {
         try {
           await this.$auth.logout();
+
+          // Vuex内のデータ破棄
+          this.$store.commit('removeFavoriteDog');
+
           this.$router.push("/login");
         } catch (error) {
           console.log(error);
