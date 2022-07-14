@@ -77,10 +77,8 @@
 
 <script>
 import CalendarComponent from '../../components/CalendarComponent.vue';
-import verifyUserId from '../../middleware/verifyUserId.js';
 export default {
   components: { CalendarComponent },
-  middleware: verifyUserId,
 
   data() {
     return {

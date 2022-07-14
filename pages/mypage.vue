@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <p>{{userData}}</p>
+    <p>{{myDogList}}</p>
     <v-icon>mdi-account-edit</v-icon>
     <NuxtLink :to="`/edit/user/${$store.state.auth.user.id}`">
       情報変更
@@ -46,6 +47,22 @@
         </v-row>
       </v-col>
     </v-row>
+    <p>飼い犬一覧</p>
+    <v-row>
+      <v-col
+        v-for="myDog in myDogList"
+        :key="myDog.id"
+        cols=6
+      >
+        <DogCard :dogData=myDog />
+        <v-col>
+          <NuxtLink :to="`/edit/dog/${myDog.id}`">
+            <v-btn>修正</v-btn>
+          </NuxtLink>
+          <v-btn @click="deleteDog(myDog.id)">削除</v-btn>
+        </v-col>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -56,6 +73,7 @@ export default {
   data() {
     return {
       userData: {},
+      myDogList: [],
     }
   }, //end data
 
@@ -73,7 +91,7 @@ export default {
   }, //end filters
 
   methods: {
-    async deleteReservation(id){
+    async deleteReservation(id) {
       if( !this.$store.state.auth.loggedIn ){
         alert('再度ログインしてください');
         this.$router.push("/login");
@@ -82,6 +100,16 @@ export default {
         location.reload();
       }
     },
+
+    async deleteDog(id) {
+      if( !this.$store.state.auth.loggedIn ){
+        alert('再度ログインしてください');
+        this.$router.push("/login");
+      } else {
+        await this.$axios.delete(`${this.$axios.defaults.baseURL}api/auth/dog/` + id);
+        location.reload();
+      }
+    }
   }, //end methods
 
   async asyncData({ app }) {
@@ -90,6 +118,7 @@ export default {
     );
     return {
       userData: userData.data,
+      myDogList: userData.data.dog
     };
   },
 
