@@ -1,6 +1,10 @@
 <template>
   <v-container>
     <p>{{userData}}</p>
+    <v-icon>mdi-account-edit</v-icon>
+    <NuxtLink :to="`/edit/user/${$store.state.auth.user.id}`">
+      情報変更
+    </NuxtLink>
     <v-row>
       <v-col
         cols=7
