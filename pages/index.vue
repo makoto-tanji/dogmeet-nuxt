@@ -3,6 +3,8 @@
     <h1>home</h1>
     <p>{{$axios.defaults.baseURL}}</p>
     <p>{{$store.state.favoriteDogList}}</p>
+    <p>{{$store.state.areas.areaList}}</p>
+    <p>{{$store.state.breeds.breedList}}</p>
     <div class="card-container">
       <v-row>
         <v-col
