@@ -100,7 +100,7 @@ export default {
             password: this.password,
           }
         );
-        this.$reuter.push('/thanks');
+        this.$router.push('/thanks');
       } catch(error) {
         alert(
           ( (error.response.data.error.name)? `${error.response.data.error.name}\n` : '')

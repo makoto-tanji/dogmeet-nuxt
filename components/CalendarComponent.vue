@@ -82,11 +82,13 @@ export default {
   ],
   data() {
     return {
+      // 表示する日数
       displayCount: 8,
       year: null,
       month: null,
       today: null,
       dayOfWeeks: [],
+      // 今日の日付からどれくらい前後したか
       prevNext: 0,
     }
   }, //end data
@@ -96,9 +98,9 @@ export default {
   }, //end computed
 
   filters: {
-    // スケジュールの先頭の0と00秒を消す
+    // スケジュールの00秒を消す
     eraseZero(value) {
-      const regex = /[1-9]+:[0-9]+/g;
+      const regex = /[0-9]+:[0-9]+/g;
       return value.match(regex)[0] ?? 'x';
     }
   }, //end filters

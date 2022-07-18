@@ -51,10 +51,10 @@
           </thead>
           <tbody>
             <tr
-              v-for="schedule in dogData.dog_schedule"
+              v-for="schedule in dogData.schedules"
               :key="schedule.id"
             >
-              <th>{{ schedule.start_time | eraseZero }} - {{ schedule.end_time | eraseZero }}</th>
+              <th>{{ schedule.start_time | eraseZero }} - {{ schedule.end_time | eraseZero}}</th>
               <td>{{ schedule.sunday | convertNumberToCircle }}</td>
               <td>{{ schedule.monday | convertNumberToCircle }}</td>
               <td>{{ schedule.tuesday | convertNumberToCircle }}</td>
@@ -69,7 +69,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <CalendarComponent :schedules=schedule :dogId="dogData.id" />
+        <CalendarComponent :schedules="schedules" :dogId="dogData.id" />
       </v-col>
     </v-row>
   </v-container>
@@ -83,7 +83,7 @@ export default {
   data() {
     return {
       dogData: {},
-      schedule: {},
+      schedules: {},
     }
   }, //end data
 
@@ -122,9 +122,9 @@ export default {
       }
     },
 
-    // スケジュールの先頭の0と00秒を消す
+    // スケジュールの00秒を消す
     eraseZero(value) {
-      const regex = /[1-9]+:[0-9]+/g;
+      const regex = /[0-9]+:[0-9]+/g;
       return value.match(regex)[0] ?? 'x';
     }
   }, //end filters
@@ -139,7 +139,7 @@ export default {
     )
     return {
       dogData: resData.data.dogResData[0],
-      schedule: resData.data.dogResData[0].dog_schedule
+      schedules: resData.data.dogResData[0].schedules
     }
   },
 

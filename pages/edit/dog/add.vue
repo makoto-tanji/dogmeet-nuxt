@@ -141,17 +141,9 @@
       <v-btn
         @click="storeDog"
       >
-        作成
+        登録
       </v-btn>
     </v-form>
-    <p>なまえ{{dogName}}</p>
-    <p>せつめい{{overview}}</p>
-    <p>誕生日{{birthday}}</p>
-    <p>性別{{sex}}</p>
-    <p>公園{{area}}</p>
-    <p>犬種{{breed}}</p>
-    <p>飼い主{{userId}}</p>
-    <p>予定{{schedules}}</p>
   </v-container>
 </template>
 
@@ -162,6 +154,7 @@ export default {
 
   data() {
     return {
+      // 犬情報
       dogName: null,
       overview: null,
       birthday: null,
@@ -170,6 +163,8 @@ export default {
       area: null,
       breed: null,
       userId: this.$store.state.auth.user.id,
+      newDogId: null,
+      // スケジュール情報
       scheduleCount: 1,
       schedules: [
         {
@@ -182,12 +177,12 @@ export default {
           thursday : 0,
           friday : 0,
           saturday : 0,
+          // 中間テーブル用
+          dog_id: null,
         },
       ],
 
-      year: null,
-      month: null,
-      day: null,
+      // Form用
       areaList: this.$store.state.areas.areaList,
       breedList: this.$store.state.breeds.breedList,
 
@@ -209,15 +204,7 @@ export default {
   }, //end filters
 
   watch: {
-    year() {
-      this.birthday = `${this.year}-${this.month}-${this.day}`;
-    },
-    month() {
-      this.birthday = `${this.year}-${this.month}-${this.day}`;
-    },
-    day() {
-      this.birthday = `${this.year}-${this.month}-${this.day}`;
-    },
+
   },
 
   methods: {
@@ -235,6 +222,7 @@ export default {
           thursday : 0,
           friday : 0,
           saturday : 0,
+          dog_id: null,
         }
       );
     },
@@ -253,7 +241,6 @@ export default {
     },
     // TimePickerコンポーネントから時間を受け取る
     getStartTime(time, i) {
-      // this.startTime = time
       this.schedules[i].start_time = time
     },
     getEndTime(time, i) {
@@ -275,14 +262,33 @@ export default {
         user_id: this.userId
       }
       try {
-        await this.$axios.post(
+        const resData = await this.$axios.post(
           `${this.$axios.defaults.baseURL}api/auth/dog`,
           sendData
         );
+        this.newDogId = resData.data.dogStoreData.id
+        // 作成された犬のIDを渡す
+        this.storeSchedule(this.newDogId);
       } catch(error) {
         console.log(error)
       }
     },
+    // スケジュールを登録する
+    async storeSchedule(dogId) {
+      try{
+        for(let i=0; i<this.schedules.length; i++){
+          this.schedules[i].dog_id = dogId;
+          const resData = await this.$axios.post(
+            `${this.$axios.defaults.baseURL}api/auth/schedule`,
+            this.schedules[i],
+          );
+        }
+        alert('登録が完了しました');
+        this.$router.push('/mypage');
+      } catch(error) {
+        console.log(error)
+      }
+    }
   }, //end methods
 
   created() {

@@ -1,5 +1,6 @@
 export default ({ $axios, store }) => {
 
+  // 公園データを取得してVuexで保存
   async function getArea() {
     try {
       const resData = await $axios.get(
@@ -21,6 +22,7 @@ export default ({ $axios, store }) => {
     }
   }
 
+  // 犬種データを取得してVuexで保存
   async function getBreed() {
     try {
       const resData = await $axios.get(
