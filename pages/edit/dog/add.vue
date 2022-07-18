@@ -6,7 +6,7 @@
       <div>
         <v-text-field
           v-model="dogName"
-          :rules="nameRules"
+          :rules="requiredRules"
           label="お名前"
           maxlength="191"
           required
@@ -14,7 +14,11 @@
         <BirthdayPicker
           @sendBirthday="getBirthday"
         />
-        <v-radio-group v-model="sex" row>
+        <v-radio-group
+          v-model="sex"
+          row
+          mandatory
+        >
           <v-radio
             label="オス"
             :value=1
@@ -28,6 +32,7 @@
           v-model="breed"
           label="犬種"
           :items="breedList"
+          :rules="requiredRules"
           item-text="breedName"
           item-value="id"
         />
@@ -37,6 +42,7 @@
           background-color="gray"
           label="自己紹介・特徴など"
           outlined
+          :rules="requiredRules"
         />
       </div>
       <div>
@@ -44,6 +50,7 @@
           v-model="area"
           label="公園"
           :items="areaList"
+          :rules="requiredRules"
           item-text="areaName"
           item-value="id"
         />
@@ -140,6 +147,7 @@
       </div>
       <v-btn
         @click="storeDog"
+        :disabled="!valid"
       >
         登録
       </v-btn>
@@ -187,9 +195,9 @@ export default {
       breedList: this.$store.state.breeds.breedList,
 
       valid: true,
-      nameRules: [
+      requiredRules: [
         (v) => {
-          return (v) ? true : 'お名前を入力してください';
+          return (v) ? true : '入力してください';
         }
       ],
     }
@@ -267,6 +275,7 @@ export default {
           sendData
         );
         this.newDogId = resData.data.dogStoreData.id
+        console.log('store dog')
         // 作成された犬のIDを渡す
         this.storeSchedule(this.newDogId);
       } catch(error) {

@@ -19,6 +19,7 @@
           readonly
           v-bind="attrs"
           v-on="on"
+          :rules="requiredRules"
         ></v-text-field>
       </template>
       <v-time-picker
@@ -41,8 +42,12 @@ export default {
 
   data() {
     return {
-      // time: null,
       menu: false,
+      requiredRules: [
+        (v) => {
+          return (v) ? true : '入力してください';
+        }
+      ],
     }
   }, //end data
 

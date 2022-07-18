@@ -16,6 +16,7 @@
           readonly
           v-bind="attrs"
           v-on="on"
+          :rules="requiredRules"
         ></v-text-field>
       </template>
       <v-date-picker
@@ -37,6 +38,12 @@
       activePicker: null,
       date: null,
       menu: false,
+
+      requiredRules: [
+        (v) => {
+          return (v) ? true : '入力してください';
+        }
+      ],
     }),
     watch: {
       menu (val) {
