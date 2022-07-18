@@ -36,6 +36,17 @@
           item-text="breedName"
           item-value="id"
         />
+        <p>{{selectColors}}</p>
+        <v-container class="checkboxs d-flex justify-space-between">
+          <v-checkbox
+            v-for="(color, index) in colorList"
+            v-model="selectColors[index]"
+            :key="color.id"
+            :label="color.color"
+            :true-value="color.id"
+            :false-value=null
+          />
+        </v-container>
         <v-textarea
           v-model="overview"
           auto-grow
@@ -170,6 +181,7 @@ export default {
       thumbnailPath: '',
       area: null,
       breed: null,
+      selectColors: [],
       userId: this.$store.state.auth.user.id,
       newDogId: null,
       // スケジュール情報
@@ -193,6 +205,7 @@ export default {
       // Form用
       areaList: this.$store.state.areas.areaList,
       breedList: this.$store.state.breeds.breedList,
+      colorList: this.$store.state.colors.colorList,
 
       valid: true,
       requiredRules: [
@@ -267,6 +280,7 @@ export default {
         thumbnail_path: this.thumbnailPath,
         area_id: this.area,
         breed_id: this.breed,
+        colors: this.selectColors,
         user_id: this.userId
       }
       try {
@@ -275,7 +289,6 @@ export default {
           sendData
         );
         this.newDogId = resData.data.dogStoreData.id
-        console.log('store dog')
         // 作成された犬のIDを渡す
         this.storeSchedule(this.newDogId);
       } catch(error) {

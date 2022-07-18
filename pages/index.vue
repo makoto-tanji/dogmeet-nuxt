@@ -4,6 +4,7 @@
     <p>{{$axios.defaults.baseURL}}</p>
     <p>{{$store.state.favoriteDogList}}</p>
     <p>{{$store.state.areas.areaList}}</p>
+    <p>{{$store.state.colors.colorList}}</p>
     <p>{{$store.state.breeds.breedList}}</p>
     <div class="card-container">
       <v-row>

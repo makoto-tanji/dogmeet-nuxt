@@ -43,7 +43,28 @@ export default ({ $axios, store }) => {
       console.log(error);
     }
   }
+  // 色データを取得してVuexで保存
+  async function getColor() {
+    try {
+      const resData = await $axios.get(
+        `${$axios.defaults.baseURL}api/color`
+      );
+      const colorList = resData.data.colorData;
+      if (store.state.colors.colorList.length > 0) {
+        store.commit('colors/remove')
+      }
+      for (let i = 0; i < colorList.length; i++) {
+        store.commit('colors/add', {
+          id: colorList[i].id,
+          color: colorList[i].color,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   getArea();
   getBreed();
+  getColor();
 }
