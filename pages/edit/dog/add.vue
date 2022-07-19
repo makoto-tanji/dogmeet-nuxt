@@ -1,9 +1,7 @@
 <template>
   <v-container>
-    <!-- <p>{{$store.state.auth.user}}</p> -->
-    <!-- <p>{{breedList}}</p> -->
     <v-form v-model="valid">
-      <div>
+      <div class="dog-info-container">
         <v-text-field
           v-model="dogName"
           :rules="requiredRules"
@@ -55,6 +53,23 @@
           outlined
           :rules="requiredRules"
         />
+        <v-row>
+          <v-col cols=4>
+            <v-file-input
+              accept="image/*"
+              label="画像選択"
+              show-size
+              @change="uploadImg"
+              v-model="uploadedImg"
+            />
+          </v-col>
+          <v-col cols=8>
+            <v-img
+              :src="imgURL"
+              max-width=300px
+            />
+          </v-col>
+        </v-row>
       </div>
       <div>
         <v-select
@@ -157,12 +172,13 @@
         </v-row>
       </div>
       <v-btn
-        @click="storeDog"
+        @click="storeData"
         :disabled="!valid"
       >
         登録
       </v-btn>
     </v-form>
+    <p>{{thumbnailPath}}</p>
   </v-container>
 </template>
 
@@ -178,11 +194,13 @@ export default {
       overview: null,
       birthday: null,
       sex: null,
-      thumbnailPath: '',
+      thumbnailPath: null,
       area: null,
       breed: null,
       selectColors: [],
       userId: this.$store.state.auth.user.id,
+      uploadedImg: null,
+      imgURL: null,
       newDogId: null,
       // スケジュール情報
       scheduleCount: 1,
@@ -229,6 +247,31 @@ export default {
   },
 
   methods: {
+    // 画像を読み込む
+    uploadImg() {
+      if(this.uploadedImg) {
+        if(this.uploadedImg.size > 1000000) {
+          aleart('画像サイズを1MB以下にしてください')
+        };
+        this.imgURL = URL.createObjectURL(this.uploadedImg);
+      }
+    },
+    // スケジュールを登録する
+    async storeSchedule(dogId) {
+      try{
+        for(let i=0; i<this.schedules.length; i++){
+          this.schedules[i].dog_id = dogId;
+          const resData = await this.$axios.post(
+            `${this.$axios.defaults.baseURL}api/auth/schedule`,
+            this.schedules[i],
+          );
+        }
+        alert('登録が完了しました');
+        this.$router.push('/mypage');
+      } catch(error) {
+        console.log(error)
+      }
+    },
     // スケジュールの表示個数を増加する
     addScheduleCount() {
       this.scheduleCount ++;
@@ -270,46 +313,54 @@ export default {
     test() {
 
     },
-    // 犬情報を登録する
-    async storeDog() {
-      const sendData = {
-        dog_name: this.dogName,
-        overview: this.overview,
-        birthday: this.birthday,
-        sex: this.sex,
-        thumbnail_path: this.thumbnailPath,
-        area_id: this.area,
-        breed_id: this.breed,
-        colors: this.selectColors,
-        user_id: this.userId
-      }
-      try {
-        const resData = await this.$axios.post(
-          `${this.$axios.defaults.baseURL}api/auth/dog`,
-          sendData
-        );
-        this.newDogId = resData.data.dogStoreData.id
-        // 作成された犬のIDを渡す
-        this.storeSchedule(this.newDogId);
-      } catch(error) {
-        console.log(error)
-      }
-    },
-    // スケジュールを登録する
-    async storeSchedule(dogId) {
+
+    // 全情報を登録する
+    async storeData() {
+      // 1.画像をバックエンド側に保存
       try{
-        for(let i=0; i<this.schedules.length; i++){
-          this.schedules[i].dog_id = dogId;
-          const resData = await this.$axios.post(
-            `${this.$axios.defaults.baseURL}api/auth/schedule`,
-            this.schedules[i],
-          );
+        const formData = new FormData();
+        formData.append('imgFile', this.uploadedImg);
+        formData.append('imgName', this.uploadedImg.name);
+        //ContentTypeを変える
+        const config = {
+          header: {
+            "Content-Type": "multipart/form-data",
+          },
+        };
+        const res = await this.$axios.post(
+          `${this.$axios.defaults.baseURL}api/auth/image`,
+          formData,
+          config
+        );
+        this.thumbnailPath = `storage/images/${res.data.imgName}`;
+        // 2.犬情報を登録する
+        if(this.thumbnailPath){
+          const sendData = {
+            dog_name: this.dogName,
+            overview: this.overview,
+            birthday: this.birthday,
+            sex: this.sex,
+            thumbnail_path: this.thumbnailPath,
+            area_id: this.area,
+            breed_id: this.breed,
+            colors: this.selectColors,
+            user_id: this.userId
+          };
+          try {
+            const resData = await this.$axios.post(
+              `${this.$axios.defaults.baseURL}api/auth/dog`,
+              sendData
+            );
+            this.newDogId = resData.data.dogStoreData.id
+            // 3.作成された犬のIDとスケジュールを保存
+            this.storeSchedule(this.newDogId);
+          } catch(error) {
+            console.log(error)
+          } //end store dog
         }
-        alert('登録が完了しました');
-        this.$router.push('/mypage');
       } catch(error) {
         console.log(error)
-      }
+      } //end store img
     }
   }, //end methods
 
