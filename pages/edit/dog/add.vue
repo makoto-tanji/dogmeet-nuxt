@@ -310,9 +310,6 @@ export default {
     getEndTime(time, i) {
       this.schedules[i].end_time = time
     },
-    test() {
-
-    },
 
     // 全情報を登録する
     async storeData() {
