@@ -235,8 +235,10 @@
 </template>
 
 <script>
+import isHigherOwner from '../../../middleware/isHigherOwner'
+import isMyDog from '../../../middleware/isMyDog'
 export default {
-  // middleware: 'auth'
+  middleware: ['auth', isHigherOwner, isMyDog],
 
   data() {
     return {
