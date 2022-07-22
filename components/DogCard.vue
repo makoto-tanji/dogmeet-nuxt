@@ -3,7 +3,8 @@
     <v-card
       color="background"
       elevation="1"
-      max-width="350"
+      max-width="300"
+      height="450"
     >
       <img
         :src="`${$axios.defaults.baseURL}${dogData.thumbnail_path}`"

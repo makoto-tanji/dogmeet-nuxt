@@ -55,7 +55,7 @@
           <v-list-item-content>
             <v-list-item-title>
               <NuxtLink
-                to="admin/mail"
+                to="/admin/mail"
                 class="white--text"
               >
                 メール送信ページ
