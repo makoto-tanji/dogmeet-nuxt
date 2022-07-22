@@ -1,235 +1,272 @@
 <template>
   <v-container>
+    <h4 class="text-h4">わんちゃん登録内容変更</h4>
     <v-form>
-      <v-text-field
-        v-model="dogName"
-        label="お名前"
-        maxlength="191"
-      />
-      <BirthdayPicker
-          @sendBirthday="getBirthday"
-      />
-      <v-radio-group v-model="sex" row mandatory>
-        <v-radio
-          label="オス"
-          :value=1
+      <v-container class="info-container">
+        <h5 class="text-h5">基本情報</h5>
+        <v-text-field
+          v-model="dogName"
+          label="お名前"
+          maxlength="191"
         />
-        <v-radio
-          label="メス"
-          :value=2
+        <BirthdayPicker
+            @sendBirthday="getBirthday"
         />
-      </v-radio-group>
-      <v-select
-        v-model="breed"
-        label="犬種"
-        :items="breedList"
-        item-text="breedName"
-        item-value="id"
-      />
-      <v-container class="checkboxs d-flex justify-space-between">
-        <v-checkbox
-          v-for="(color, index) in colorList"
-          v-model="selectColors[index]"
-          :key="color.id"
-          :label="color.color"
-          :true-value="color.id"
-          :false-value=null
+        <v-radio-group v-model="sex" row mandatory>
+          <v-radio
+            label="オス"
+            :value=1
+          />
+          <v-radio
+            label="メス"
+            :value=2
+          />
+        </v-radio-group>
+        <v-select
+          v-model="breed"
+          label="犬種"
+          :items="breedList"
+          item-text="breedName"
+          item-value="id"
         />
-      </v-container>
-      <v-textarea
-        v-model="overview"
-        auto-grow
-        background-color="gray"
-        label="自己紹介・特徴など"
-        outlined
-      />
-      <v-select
-        v-model="area"
-        label="公園"
-        :items="areaList"
-        item-text="areaName"
-        item-value="id"
-      />
-      <v-container>
-        <v-row>
-          <v-col cols=6>
-            <p>現在の画像</p>
-            <v-img
-              :src="`${$axios.defaults.baseURL}${dogData.thumbnail_path}`"
-              :aspect-ratio="16/9"
-              max-width="300"
-            />
-          </v-col>
-          <v-col cols=6>
-            <v-file-input
-              accept="image/*"
-              label="画像選択"
-              show-size
-              @change="uploadImg"
-              v-model="uploadedImg"
-            />
-            <v-img
-              :src="imgURL"
-              :aspect-ratio="16/9"
-              max-width=300px
-            />
-          </v-col>
-        </v-row>
-        <v-btn @click="storeImg">画像保存</v-btn>
-      </v-container>
-      <v-btn
-        @click="updateDogData"
-      >
-        更新
-      </v-btn>
-      <v-row
-        v-for="(schedule, index) in dogData.schedules"
-        :key="schedule.id"
-      >
-        <v-col cols=12>予定{{ index+1 }}</v-col>
-        <v-col
-          sm=12
-          md=6
-        >
-          <TimePicker
-            @sendChildTime="getStartTime"
-            :time="schedule.start_time"
-            :index="index"
-            label="到着時間"
-          />
-        </v-col>
-        <v-col
-          sm=12
-          md=6
-        >
-          <TimePicker
-            @sendChildTime="getStartTime"
-            :time="schedule.end_time"
-            :index="index"
-            label="帰宅時間"
-          />
-        </v-col>
-        <v-container
-          class="checkboxs d-flex justify-space-between"
-        >
+        <v-container class="checkboxs d-flex justify-space-between">
           <v-checkbox
-            v-model="schedule.sunday"
-            label="日"
-            :true-value=1
-            :false-value=0
-          />
-          <v-checkbox
-            v-model="schedule.monday"
-            label="月"
-            :true-value=1
-            :false-value=0
-          />
-          <v-checkbox
-            v-model="schedule.tuesday"
-            label="火"
-            :true-value=1
-            :false-value=0
-          />
-          <v-checkbox
-            v-model="schedule.wednesday"
-            label="水"
-            :true-value=1
-            :false-value=0
-          />
-          <v-checkbox
-            v-model="schedule.thursday"
-            label="木"
-            :true-value=1
-            :false-value=0
-          />
-          <v-checkbox
-            v-model="schedule.friday"
-            label="金"
-            :true-value=1
-            :false-value=0
-          />
-          <v-checkbox
-            v-model="schedule.saturday"
-            label="土"
-            :true-value=1
-            :false-value=0
+            v-for="(color, index) in colorList"
+            v-model="selectColors[index]"
+            :key="color.id"
+            :label="color.color"
+            :true-value="color.id"
+            :false-value=null
           />
         </v-container>
-        <v-btn @click="updateSchedule(schedule)">予定更新</v-btn>
-        <v-btn @click="removeSchedule(scehdule.id)">予定削除</v-btn>
-      </v-row>
-      <v-row>
-        <v-col cols=12>
-          <p>新規予定</p>
-        </v-col>
-        <v-col
-          sm=12
-          md=6
+        <v-textarea
+          v-model="overview"
+          auto-grow
+          background-color="gray"
+          label="自己紹介・特徴など"
+          outlined
+        />
+        <v-select
+          v-model="area"
+          label="公園"
+          :items="areaList"
+          item-text="areaName"
+          item-value="id"
+        />
+        <v-container class="img-container">
+          <v-row>
+            <v-col cols=6>
+              <p>現在の画像</p>
+            </v-col>
+            <v-col cols=6>
+              <v-file-input
+                accept="image/*"
+                label="変更後画像"
+                show-size
+                dense
+                @change="uploadImg"
+                v-model="uploadedImg"
+              />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-img
+                :src="`${$axios.defaults.baseURL}${dogData.thumbnail_path}`"
+                :aspect-ratio="16/9"
+                max-width="300"
+              />
+            </v-col>
+            <v-col>
+              <v-img
+                :src="imgURL"
+                :aspect-ratio="16/9"
+                max-width=300px
+              />
+            </v-col>
+          </v-row>
+          <v-btn
+            @click="storeImg"
+            color="primary"
+          >
+            画像保存
+          </v-btn>
+        </v-container>
+        <v-btn
+          @click="updateDogData"
+          color="primary"
+          class="update-btn"
         >
-          <TimePicker
-            @sendChildTime="getAddStartTime"
-            label="到着時刻"
-            :time="schedule.start_time"
-          />
-        </v-col>
-        <v-col
-          sm=12
-          md=6
-        >
-          <TimePicker
-            @sendChildTime="getAddEndTime"
-            label="帰宅時刻"
-            :time="schedule.end_time"
-          />
-        </v-col>
-      </v-row>
-      <v-container class="checkboxs d-flex justify-space-between">
-        <v-checkbox
-          v-model="schedule.sunday"
-          label="日"
-          :true-value=1
-          :false-value=0
-        />
-        <v-checkbox
-          v-model="schedule.monday"
-          label="月"
-          :true-value=1
-          :false-value=0
-        />
-        <v-checkbox
-          v-model="schedule.tuesday"
-          label="火"
-          :true-value=1
-          :false-value=0
-        />
-        <v-checkbox
-          v-model="schedule.wednesday"
-          label="水"
-          :true-value=1
-          :false-value=0
-        />
-        <v-checkbox
-          v-model="schedule.thursday"
-          label="木"
-          :true-value=1
-          :false-value=0
-        />
-        <v-checkbox
-          v-model="schedule.friday"
-          label="金"
-          :true-value=1
-          :false-value=0
-        />
-        <v-checkbox
-          v-model="schedule.saturday"
-          label="土"
-          :true-value=1
-          :false-value=0
-        />
+          情報更新
+        </v-btn>
       </v-container>
-      <v-btn @click="storeSchedule">
-        予定追加
-      </v-btn>
+      <v-container class="schedule-container">
+        <h5 class="text-h5">スケジュール</h5>
+        <v-row
+          v-for="(schedule, index) in dogData.schedules"
+          :key="schedule.id"
+          class="schedule-content"
+        >
+          <v-col cols=12>予定{{ index+1 }}</v-col>
+          <v-col
+            sm=12
+            md=6
+          >
+            <TimePicker
+              @sendChildTime="getStartTime"
+              :time="schedule.start_time"
+              :index="index"
+              label="到着時間"
+            />
+          </v-col>
+          <v-col
+            sm=12
+            md=6
+          >
+            <TimePicker
+              @sendChildTime="getStartTime"
+              :time="schedule.end_time"
+              :index="index"
+              label="帰宅時間"
+            />
+          </v-col>
+          <v-container
+            class="checkboxs d-flex justify-space-between"
+          >
+            <v-checkbox
+              v-model="schedule.sunday"
+              label="日"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.monday"
+              label="月"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.tuesday"
+              label="火"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.wednesday"
+              label="水"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.thursday"
+              label="木"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.friday"
+              label="金"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.saturday"
+              label="土"
+              :true-value=1
+              :false-value=0
+            />
+          </v-container>
+          <v-btn
+            @click="updateSchedule(schedule)"
+            color="primary"
+          >
+            予定更新
+          </v-btn>
+          <v-btn
+            @click="removeSchedule(scehdule.id)"
+            color="warning"
+          >
+            予定削除
+          </v-btn>
+        </v-row>
+        <v-container class="schedule-content new-schedule">
+          <v-row>
+            <v-col cols=12>
+              <p>新規予定</p>
+            </v-col>
+            <v-col
+              sm=12
+              md=6
+            >
+              <TimePicker
+                @sendChildTime="getAddStartTime"
+                label="到着時刻"
+                :time="schedule.start_time"
+              />
+            </v-col>
+            <v-col
+              sm=12
+              md=6
+            >
+              <TimePicker
+                @sendChildTime="getAddEndTime"
+                label="帰宅時刻"
+                :time="schedule.end_time"
+              />
+            </v-col>
+          </v-row>
+          <v-container class="checkboxs d-flex justify-space-between">
+            <v-checkbox
+              v-model="schedule.sunday"
+              label="日"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.monday"
+              label="月"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.tuesday"
+              label="火"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.wednesday"
+              label="水"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.thursday"
+              label="木"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.friday"
+              label="金"
+              :true-value=1
+              :false-value=0
+            />
+            <v-checkbox
+              v-model="schedule.saturday"
+              label="土"
+              :true-value=1
+              :false-value=0
+            />
+          </v-container>
+          <v-btn
+            @click="storeSchedule"
+            color="primary"
+          >
+            予定追加
+          </v-btn>
+        </v-container>
+      </v-container>
     </v-form>
   </v-container>
 </template>
@@ -275,17 +312,6 @@ export default {
       colorList: this.$store.state.colors.colorList,
     }
   }, //end data
-
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
-
-  watch: {
-  },
 
   methods: {
     // BirthdayPickerコンポーネントから誕生日を受け取る
@@ -400,7 +426,7 @@ export default {
           `${this.axios.defaults.baseURL}api/auth/schedule/${id}`
         )
       } catch(error) {
-
+        alert('エラー')
       }
     },
 
@@ -434,12 +460,22 @@ export default {
     }
   }, //end created
 
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-
+.info-container{
+  border: 2px solid #a0a0a0;
+  margin-bottom: 20px;
+}
+.update-btn{
+  margin: 20px 0px;
+}
+.schedule-container{
+  border: 2px solid #a0a0a0;
+}
+.schedule-content{
+  border: 1px solid #b0b0b0;
+  margin: 20px 0px;
+}
 </style>

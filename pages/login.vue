@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="login-container">
     <v-form
       ref="form"
       v-model="valid"
@@ -7,21 +7,19 @@
     <v-text-field
       v-model="email"
       :rules="emailRules"
-      label="Email"
-      placeholder="Email"
+      label="メールアドレス"
+      placeholder="xxx@xxx.xxx"
       maxlength="191"
       required
-      dense
       prepend-icon="mdi-email"
     />
     <v-text-field
       v-model="password"
       :rules="passwordRules"
-      label="Password"
-      placeholder="Password"
+      label="パスワード"
+      placeholder="パスワード"
       maxlength="191"
       required
-      dense
       type="password"
       prepend-icon="mdi-lock"
     />
@@ -38,8 +36,12 @@
 
 <script>
 export default {
-  // middleware: 'auth'
-  // auth: false,
+  // ログイン済みユーザーのアクセスを拒否
+  middleware({ store, redirect }) {
+    if (store.state.auth.loggedIn) {
+      return redirect('/')
+    }
+  },
 
   data() {
     return {
@@ -63,14 +65,6 @@ export default {
       ],
     }
   }, //end data
-
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
 
   methods: {
     // ログイン
@@ -101,17 +95,11 @@ export default {
       }
     }
   }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-
+.login-container{
+  width: 80%;
+}
 </style>

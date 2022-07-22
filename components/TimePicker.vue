@@ -61,28 +61,5 @@ export default {
       }
     }
   }, //end computed
-
-  filters: {
-
-  }, //end filters
-
-  watch: {
-
-  },
-  methods: {
-
-  }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
-
-<style scoped>
-
-</style>

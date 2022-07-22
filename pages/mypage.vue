@@ -1,45 +1,49 @@
 <template>
   <v-container>
-    <p>{{userData}}</p>
-    <p>{{myDogList}}</p>
+    <h4 class="text-h4">マイページ</h4>
     <v-icon>mdi-account-edit</v-icon>
     <NuxtLink :to="`/edit/user/${$store.state.auth.user.id}`">
-      情報変更
+      <v-btn color="primary">情報変更</v-btn>
     </NuxtLink>
-    <v-row>
+    <v-row class="favorite-register">
       <v-col
-        cols=7
+        cols=12
         sm=12
         md=7
+        class="favorite-container"
       >
-        <p>お気に入り一覧</p>
+        <h5 class="text-h5">お気に入り一覧</h5>
         <v-row>
           <v-col
             v-for="favorite in userData.favorites"
             :key="favorite.id"
-            cols=6
+            cols=12
+            sm=6
           >
             <DogCard :dogData=favorite />
           </v-col>
         </v-row>
       </v-col>
       <v-col
-        cols=5
+        cols=12
         sm=12
         md=5
+        class="register-container"
       >
-        <p>予約一覧</p>
+        <h5 class="text-h5">予約一覧</h5>
         <v-row>
           <v-col
             v-for="reservation in userData.reservations"
             :key="reservation.id"
             cols=12
+            class="register-content"
           >
             <p>お名前：{{ reservation.dog_name }}</p>
             <p>場所：{{ reservation.area.area_name }}</p>
             <p>日時：{{ reservation.pivot.reservation_date | formatDate}}</p>
             <v-btn
               @click="deleteReservation(reservation.pivot.id)"
+              color="warning"
             >
               取り消し
             </v-btn>
@@ -47,7 +51,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <p>飼い犬一覧</p>
+    <h5 class="text-h5">飼い犬一覧</h5>
     <v-row>
       <v-col
         v-for="myDog in myDogList"
@@ -57,18 +61,26 @@
         <DogCard :dogData=myDog />
         <v-col>
           <NuxtLink :to="`/edit/dog/${myDog.id}`">
-            <v-btn>修正</v-btn>
+            <v-btn color="primary">修正</v-btn>
           </NuxtLink>
-          <v-btn @click="deleteDog(myDog.id)">削除</v-btn>
+          <v-btn
+            @click="deleteDog(myDog.id)"
+            color="warning"
+          >
+            削除
+          </v-btn>
         </v-col>
       </v-col>
     </v-row>
+    <NuxtLink to="/edit/dog/add">
+      <v-btn color="primary">わんちゃん新規登録</v-btn>
+    </NuxtLink>
   </v-container>
 </template>
 
 <script>
 export default {
-  // middleware: 'auth'
+  middleware: 'auth',
 
   data() {
     return {
@@ -77,9 +89,6 @@ export default {
     }
   }, //end data
 
-  computed: {
-
-  }, //end computed
 
   filters: {
     // 予約日時を整形2022-07-08 08:00:00
@@ -121,16 +130,19 @@ export default {
       myDogList: userData.data.dog
     };
   },
-
-  created() {
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-
+.favorite-register{
+  margin-bottom: 30px;
+}
+.favorite-container, .register-container{
+  margin: 20px 0px;
+}
+.register-content{
+  margin: 10px 0px;
+  border: 2px solid #a0a0a0;
+  border-radius: 10px;
+}
 </style>

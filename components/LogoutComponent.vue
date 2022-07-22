@@ -16,22 +16,6 @@
 
 <script>
 export default {
-  // middleware: 'auth'
-
-  data() {
-    return {
-
-    }
-  }, //end data
-
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
-
   methods: {
     async logout() {
       const logoutConfirmation = confirm('ログアウトしますか？');
@@ -51,14 +35,6 @@ export default {
       }
     }
   }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 

@@ -22,24 +22,9 @@
 
 <script>
 export default {
-  // middleware: 'auth'
   props: [
     'dogId'
   ],
-
-  data() {
-    return {
-
-    }
-  }, //end data
-
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
 
   methods: {
     // ハート枠をクリックした時に呼ばれる
@@ -81,14 +66,6 @@ export default {
       }
     }
   }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 

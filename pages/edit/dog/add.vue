@@ -1,7 +1,9 @@
 <template>
   <v-container>
+    <h4 class="text-h4">わんちゃん新規登録</h4>
     <v-form v-model="valid">
-      <div class="dog-info-container">
+      <v-container class="info-container">
+        <h5 class="text-h5">基本情報</h5>
         <v-text-field
           v-model="dogName"
           :rules="requiredRules"
@@ -70,8 +72,7 @@
             />
           </v-col>
         </v-row>
-      </div>
-      <div>
+      
         <v-select
           v-model="area"
           label="公園"
@@ -80,11 +81,13 @@
           item-text="areaName"
           item-value="id"
         />
-        <p>count:{{scheduleCount}}</p>
+      </v-container>
+      <v-container class="schedule-container">
+        <h5 class="text-h5">スケジュール</h5>
         <v-row
           v-for="(count, i) in scheduleCount"
           :key="i"
-          class="schedule-row"
+          class="schedule-content"
         >
           <v-col cols=12>
             <p>{{`予定${count}`}}</p>
@@ -160,25 +163,27 @@
           <v-col>
             <v-btn
               @click="addScheduleCount"
+              color="primary"
             >
               予定追加
             </v-btn>
             <v-btn
               @click="subScheduleCount"
+              color="warning"
             >
               予定削除
             </v-btn>
           </v-col>
         </v-row>
-      </div>
+      </v-container>
       <v-btn
         @click="storeData"
         :disabled="!valid"
+        color="primary"
       >
-        登録
+        新規登録
       </v-btn>
     </v-form>
-    <p>{{thumbnailPath}}</p>
   </v-container>
 </template>
 
@@ -233,18 +238,6 @@ export default {
       ],
     }
   }, //end data
-
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
-
-  watch: {
-
-  },
 
   methods: {
     // 画像を読み込む
@@ -361,18 +354,19 @@ export default {
     }
   }, //end methods
 
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-.schedule-row{
-  border: 1px solid gray;
+.info-container{
+  border: 2px solid #a0a0a0;
+  margin-bottom: 20px;
+}
+.schedule-container{
+  border: 2px solid #a0a0a0;
+}
+.schedule-content{
+  border: 1px solid #b0b0b0;
+  margin: 20px 0px;
 }
 </style>

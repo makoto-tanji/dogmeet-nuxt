@@ -1,11 +1,6 @@
 <template>
   <v-container>
-    <h1>home</h1>
-    <p>{{$axios.defaults.baseURL}}</p>
-    <p>{{$store.state.favoriteDogList}}</p>
-    <p>{{$store.state.areas.areaList}}</p>
-    <p>{{$store.state.colors.colorList}}</p>
-    <p>{{$store.state.breeds.breedList}}</p>
+    <h4 class="text-h4">ホーム</h4>
     <div class="card-container">
       <v-row>
         <v-col
@@ -30,35 +25,13 @@ export default {
     }
   }, //end data
 
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
-
-  methods: {
-    async getDogs() {
-      const resData = await this.$axios.get(
-        `${this.$axios.defaults.baseURL}api/dog`
-      );
-      this.dogList = resData.data.dogData;
-    }
-  }, //end methods
-
-  created() {
-    if(process.browser) {
-      this.getDogs();
-    }
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
+  async asyncData({ app }) {
+    const resData = await app.$axios.get(
+      `${app.$axios.defaults.baseURL}api/dog`
+    );
+    return {
+      dogList: resData.data.dogData,
+    };
+  },
 }
 </script>
-
-<style scoped>
-
-</style>

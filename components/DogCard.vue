@@ -31,21 +31,10 @@
 
 <script>
 export default {
-  // middleware: 'auth'
 
   props: [
     'dogData',
   ],
-
-  data() {
-    return {
-
-    }
-  }, //end data
-
-  computed: {
-
-  }, //end computed
 
   filters: {
     // 2020-01-01の形の誕生日を年齢に変える
@@ -68,20 +57,7 @@ export default {
         return '';
       }
     }
-
   }, //end filters
-
-  methods: {
-
-  }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 

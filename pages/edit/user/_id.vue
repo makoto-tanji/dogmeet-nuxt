@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <p>{{$store.state.auth.user}}</p>
-    <v-form v-model="valid">
+    <h4 class="text-h4">登録内容変更</h4>
+    <v-form v-model="valid" class="update-form">
       <v-text-field
         v-model="name"
         :rules="nameRules"
@@ -71,14 +71,6 @@ export default {
     }
   }, //end data
 
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
-
   methods: {
     async updateUserData() {
       try{
@@ -94,17 +86,11 @@ export default {
       }
     }
   }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-
+.update-form{
+  margin: 20px 0px;
+}
 </style>

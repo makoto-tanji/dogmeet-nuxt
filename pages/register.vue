@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+  <v-container class="register-container">
+    <h4 class="text-h4">新規登録</h4>
     <v-form
       ref="form"
       v-model="valid"
@@ -7,32 +8,29 @@
     <v-text-field
       v-model="name"
       :rules="nameRules"
-      label="Username"
-      placeholder="Username"
+      label="ユーザー名"
+      placeholder="ユーザー名"
       counter="191"
       maxlength="191"
       required
-      dense
       prepend-icon="mdi-account"
     />
     <v-text-field
-      v-model="email"
+      v-model="メールアドレス"
       :rules="emailRules"
-      label="Email"
-      placeholder="Email"
+      label="メールアドレス"
+      placeholder="xxx@xxx.xxx"
       maxlength="191"
       required
-      dense
       prepend-icon="mdi-email"
     />
     <v-text-field
       v-model="password"
       :rules="passwordRules"
-      label="Password"
-      placeholder="Password"
+      label="パスワード"
+      placeholder="パスワード"
       maxlength="191"
       required
-      dense
       type="password"
       prepend-icon="mdi-lock"
     />
@@ -49,8 +47,12 @@
 
 <script>
 export default {
-  // middleware: 'auth'
-  // auth: false,
+  // ログイン済みユーザーのアクセスを拒否
+  middleware({ store, redirect }) {
+    if (store.state.auth.loggedIn) {
+      return redirect('/')
+    }
+  },
 
   data() {
     return {
@@ -80,14 +82,6 @@ export default {
     }
   }, //end data
 
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
-
   methods: {
     // 新規登録
     async register() {
@@ -100,7 +94,8 @@ export default {
             password: this.password,
           }
         );
-        this.$router.push('/thanks');
+        alert('ご登録ありがとうございます')
+        this.$router.push('/login');
       } catch(error) {
         alert(
           ( (error.response.data.error.name)? `${error.response.data.error.name}\n` : '')
@@ -110,17 +105,11 @@ export default {
       }
     },
   }, //end methods
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-
+.register-container{
+  width: 80%;
+}
 </style>

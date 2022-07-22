@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <p>{{dogData}}</p>
     <v-row>
       <v-col>
         <v-img
@@ -76,20 +75,13 @@
 </template>
 
 <script>
-import CalendarComponent from '../../components/CalendarComponent.vue';
 export default {
-  components: { CalendarComponent },
-
   data() {
     return {
       dogData: {},
       schedules: {},
     }
   }, //end data
-
-  computed: {
-
-  }, //end computed
 
   filters: {
      // 2020-01-01の形の誕生日を年齢に変える
@@ -129,10 +121,6 @@ export default {
     }
   }, //end filters
 
-  methods: {
-
-  }, //end methods
-
   async asyncData({ app, params }) {
     const resData = await app.$axios.get(
       `${app.$axios.defaults.baseURL}api/dog/${params.id}`
@@ -142,14 +130,6 @@ export default {
       schedules: resData.data.dogResData[0].schedules
     }
   },
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 

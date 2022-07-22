@@ -46,6 +46,23 @@
           </v-list-item-content>
         </v-list-item>
         <LogoutComponent />
+        <v-list-item
+          v-show="$store.state.auth.user.role === 1"
+          class="mail-link-item">
+          <v-list-item-action>
+            <v-icon> mdi-email </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              <NuxtLink
+                to="admin/mail"
+                class="white--text"
+              >
+                メール送信ページ
+              </NuxtLink>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -125,3 +142,21 @@ export default{
   }, //end data
 }
 </script>
+
+<style scoped>
+.mail-link-item{
+  cursor: pointer;
+}
+.mail-link-item::before{
+  background-color: currentColor;
+  bottom: 0;
+  content: "";
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+}
+</style>

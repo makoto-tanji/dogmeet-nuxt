@@ -29,6 +29,7 @@
       </v-container>
       <v-btn
         @click="sendMail"
+        color="primary"
       >
         メール送信
       </v-btn>
@@ -50,14 +51,6 @@ export default {
       text: null,
     }
   }, //end data
-
-  computed: {
-
-  }, //end computed
-
-  filters: {
-
-  }, //end filters
 
   methods: {
     async sendMail() {
@@ -87,14 +80,6 @@ export default {
       userList: resData.data
     }
   },
-
-  created() {
-
-  }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
