@@ -1,6 +1,8 @@
 <template>
   <v-container>
-    <v-sheet height="400">
+    <v-sheet
+      class="overflow-auto"
+    >
       <table>
         <thead>
           <tr>
@@ -11,6 +13,7 @@
                 small
                 color="grey darken-2"
                 @click="prev"
+                class="left-th"
               >
                 <v-icon small>
                   mdi-chevron-left
@@ -46,7 +49,7 @@
             v-for="schedule in schedules"
             :key="schedule.id"
           >
-            <th>{{ schedule.start_time | eraseZero }} - {{ schedule.end_time | eraseZero }}</th>
+            <th class="left-th">{{ schedule.start_time | eraseZero }} - {{ schedule.end_time | eraseZero }}</th>
               <td
                 v-for="(dayOfWeek, index) in dayOfWeeks"
                 :key="index"
@@ -61,6 +64,7 @@
               </v-btn>
               <v-icon
                 v-else
+                class="d-flex"
               >
                 mdi-close
               </v-icon>
@@ -92,10 +96,6 @@ export default {
       prevNext: 0,
     }
   }, //end data
-
-  computed: {
-
-  }, //end computed
 
   filters: {
     // スケジュールの00秒を消す
@@ -210,13 +210,14 @@ export default {
     this.setToday();
     this.setDayOfWeeks();
   }, //end created
-
-  mounted() {
-
-  }, //end mounted
 }
 </script>
 
 <style scoped>
-
+table{
+  margin: 0px auto;
+}
+.left-th{
+  width: 120px;
+}
 </style>

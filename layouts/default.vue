@@ -110,29 +110,29 @@ export default{
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Home',
+          title: 'ホーム',
           to: '/'
         },
         {
           icon: 'mdi-account-plus',
-          title: 'Register',
+          title: '新規登録',
           to: '/register'
         },
         {
           icon: 'mdi-login',
-          title: 'Login',
+          title: 'ログイン',
           to: '/login'
         }
       ],
       itemsLogined: [
         {
           icon: 'mdi-apps',
-          title: 'Home',
+          title: 'ホーム',
           to: '/'
         },
         {
           icon: 'mdi-account',
-          title: 'Mypage',
+          title: 'マイページ',
           to: '/mypage'
         },
       ],

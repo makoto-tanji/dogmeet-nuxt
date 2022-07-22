@@ -8,7 +8,7 @@
         class="white--text"
         @click="logout"
       >
-        Logout
+        ログアウト
       </v-list-item-title>
     </v-list-item-content>
   </v-list-item>

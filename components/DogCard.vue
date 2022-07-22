@@ -18,7 +18,7 @@
           <p>{{ dogData.sex | convertNumberToSex }}</p>
         </div>
         <div class="btn-container d-flex">
-          <NuxtLink :to="`/detail/${dogData.id}`">more</NuxtLink>
+          <NuxtLink :to="`/detail/${dogData.id}`">詳細ページ</NuxtLink>
           <v-spacer />
           <div>
             <FavoriteComponent :dogId="dogData.id"/>

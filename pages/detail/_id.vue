@@ -1,14 +1,21 @@
 <template>
   <v-container>
+    <h4 class="text-h4">詳細情報ページ</h4>
     <v-row>
-      <v-col>
+      <v-col
+        cols=12
+        sm=6
+      >
         <v-img
           :src="`${$axios.defaults.baseURL}${dogData.thumbnail_path}`"
           alt="thumbnail"
-          width="280px"
+          width="300px"
         />
       </v-col>
-      <v-col>
+      <v-col
+        cols=12
+        sm=6
+      >
         <table>
           <tbody>
             <tr>
@@ -29,12 +36,18 @@
             </tr>
           </tbody>
         </table>
-        <p>{{ dogData.overview }}</p>
+        <v-container class="overview">
+          <v-subheader>説明</v-subheader>
+        <p
+          class="text-body-1"
+          v-html="dogData.overview.replace(/\n/g,'<br/>')"
+        />
+        </v-container>
       </v-col>
     </v-row>
     <v-row>
       <v-col>
-        <p class="text-md-h6">散歩の予定</p>
+        <h5 class="text-h5">散歩の予定</h5>
         <table border="1">
           <thead>
             <tr>
@@ -134,5 +147,14 @@ export default {
 </script>
 
 <style scoped>
-
+table{
+  width: 320px;
+}
+td, th{
+  font-size: 20px;
+}
+.overview{
+  border: 1px solid #b0b0b0;
+  margin-top: 20px;
+}
 </style>
