@@ -33,11 +33,15 @@ export default {
   }, //end data
   methods: {
     async storeOwner(){
-      try {
-        await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/role/${this.selectedUser.id}`, {role:5});
-        alert('登録内容の変更が完了しました');
-      } catch(error) {
-
+      if(this.selectedUser.role !== 1){
+        try {
+          await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/role/${this.selectedUser.id}`, {role:5});
+          alert(`${this.selectedUser.name}さんを飼い主登録しました`);
+        } catch(error) {
+          alert(error);
+        }
+      } else {
+        alert('管理者を飼い主登録できません');
       }
     }
   },

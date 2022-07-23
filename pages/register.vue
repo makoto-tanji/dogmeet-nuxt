@@ -16,7 +16,7 @@
       prepend-icon="mdi-account"
     />
     <v-text-field
-      v-model="メールアドレス"
+      v-model="email"
       :rules="emailRules"
       label="メールアドレス"
       placeholder="xxx@xxx.xxx"
