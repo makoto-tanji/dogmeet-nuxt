@@ -186,6 +186,7 @@ export default {
     async reserve(index, skd) {
       const reservationDate = new Date();
       reservationDate.setDate( reservationDate.getDate() + this.prevNext + index );
+      console.log(`${reservationDate.getFullYear()}-${reservationDate.getMonth()+1}-${reservationDate.getDate()} ${skd.start_time}`)
       if( !this.$store.state.auth.loggedIn ) {
         alert('ログインしてください');
       } else {
@@ -198,7 +199,7 @@ export default {
           await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/reservation`, sendData);
           alert(`${reservationDate.getFullYear()}年${reservationDate.getMonth()+1}月${reservationDate.getDate()}日の${skd.start_time}～で予約しました`);
         } catch(error) {
-          alert(error);
+          alert(error.response.data.message);
         }
       }
     },

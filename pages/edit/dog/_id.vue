@@ -183,7 +183,7 @@
             予定更新
           </v-btn>
           <v-btn
-            @click="removeSchedule(scehdule.id)"
+            @click="removeSchedule(schedule.id)"
             color="warning"
           >
             予定削除
@@ -359,7 +359,7 @@ export default {
         );
         this.thumbnailPath = `storage/images/${res.data.imgName}`;
       } catch(error) {
-        console.log(eror)
+        console.log(error)
       }
     },
     // スケジュールを新規登録する
@@ -376,7 +376,6 @@ export default {
     },
 
     async updateDogData() {
-      alert(`${this.dogName}`);
         try{
           const sendData = {
             dog_name: this.dogName,
@@ -398,7 +397,6 @@ export default {
     },
 
     async updateSchedule(schedule) {
-      alert(`${schedule.id}`);
       try{
         const sendData = {
           start_time : schedule.start_time,
@@ -423,8 +421,10 @@ export default {
     async removeSchedule(id) {
       try {
         await this.$axios.delete(
-          `${this.axios.defaults.baseURL}api/auth/schedule/${id}`
-        )
+          `${this.$axios.defaults.baseURL}api/auth/schedule/${id}`
+        );
+        alert('予定を削除しました');
+        location.reload();
       } catch(error) {
         alert('エラー')
       }
