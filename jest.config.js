@@ -18,5 +18,8 @@ module.exports = {
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue'
   ],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  // 以下追加
+  // preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
+  setupFiles: ['./test/setup.js']
 }
