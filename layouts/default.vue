@@ -63,6 +63,23 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          v-show="$store.state.auth.user.role === 1"
+          class="mail-link-item">
+          <v-list-item-action>
+            <v-icon> mdi-account-edit </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              <NuxtLink
+                to="/admin/role"
+                class="white--text"
+              >
+                飼い主登録
+              </NuxtLink>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar

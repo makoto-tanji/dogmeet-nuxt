@@ -72,7 +72,10 @@
         </v-col>
       </v-col>
     </v-row>
-    <NuxtLink to="/edit/dog/add">
+    <NuxtLink
+      to="/edit/dog/add"
+      v-show="$store.state.auth.user.role <= 5"
+    >
       <v-btn color="primary">わんちゃん新規登録</v-btn>
     </NuxtLink>
   </v-container>
