@@ -43,8 +43,12 @@ export default {
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1;
-      const diffYear = year - Number(value.split('-')[0]);
-      const diffMonth = month - Number(value.split('-')[1]);
+      let diffYear = year - Number(value.split('-')[0]);
+      let diffMonth = month - Number(value.split('-')[1]);
+      if(diffMonth < 0){
+        diffYear -= 1;
+        diffMonth += 12;
+      }
       return `${diffYear}歳${diffMonth}ヶ月`;
     },
 

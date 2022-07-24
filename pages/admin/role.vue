@@ -1,20 +1,19 @@
 <template>
   <v-container>
     <v-select
-        v-model="selectedUser"
-        label="ユーザー"
-        :items="userList"
-        :hint="`${selectedUser.name}, ${selectedUser.role}`"
-        item-text="name"
-        return-object
-      />
-      <p>{{selectedUser}}</p>
-      <v-btn
-        @click="storeOwner"
-        color="primary"
-      >
-        飼い主登録
-      </v-btn>
+      v-model="selectedUser"
+      label="ユーザー"
+      :items="userList"
+      :hint="`${selectedUser.name}, ${selectedUser.role}`"
+      item-text="name"
+      return-object
+    />
+    <v-btn
+      @click="storeOwner"
+      color="primary"
+    >
+      飼い主登録
+    </v-btn>
   </v-container>
 </template>
 
@@ -38,7 +37,7 @@ export default {
           await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/role/${this.selectedUser.id}`, {role:5});
           alert(`${this.selectedUser.name}さんを飼い主登録しました`);
         } catch(error) {
-          alert(error);
+          alert('ユーザーを選択してください');
         }
       } else {
         alert('管理者を飼い主登録できません');

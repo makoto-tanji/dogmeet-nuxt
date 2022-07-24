@@ -36,7 +36,6 @@
           item-text="breedName"
           item-value="id"
         />
-        <p>{{selectColors}}</p>
         <v-container class="checkboxs d-flex justify-space-between">
           <v-checkbox
             v-for="(color, index) in colorList"
@@ -72,7 +71,6 @@
             />
           </v-col>
         </v-row>
-      
         <v-select
           v-model="area"
           label="公園"

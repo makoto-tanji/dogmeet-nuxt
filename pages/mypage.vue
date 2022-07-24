@@ -51,8 +51,10 @@
         </v-row>
       </v-col>
     </v-row>
-    <h5 class="text-h5">飼い犬一覧</h5>
     <v-row>
+      <v-col cols=12>
+        <h5 class="text-h5">飼い犬一覧</h5>
+      </v-col>
       <v-col
         v-for="myDog in myDogList"
         :key="myDog.id"

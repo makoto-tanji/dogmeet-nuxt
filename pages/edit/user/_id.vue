@@ -81,6 +81,7 @@ export default {
         }
         await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/update/${this.$route.params.id}`, sendData);
         alert('登録内容の変更が完了しました');
+        location.reload();
       } catch(error) {
         alert('エラー');
       }

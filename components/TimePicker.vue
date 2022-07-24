@@ -35,7 +35,6 @@
 
 <script>
 export default {
-  // middleware: 'auth'
   props: [
     'label', 'time', 'index'
   ],
