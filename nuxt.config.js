@@ -3,10 +3,10 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - dogmeet-nuxt',
-    title: 'dogmeet-nuxt',
+    // titleTemplate: '%s - dogmeet-nuxt',
+    title: 'dogmeet',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
@@ -83,7 +83,8 @@ export default {
     strategies: {
       'laravelJWT': {
         provider: 'laravel/jwt',
-        url: 'http://localhost:8000',
+        // url: 'http://localhost:8000',
+        url: 'https://dogmeet-laravel-api.herokuapp.com',
         token: {
           maxAge: 60 * 60
         },
