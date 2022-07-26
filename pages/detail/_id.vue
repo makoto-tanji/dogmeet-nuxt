@@ -4,17 +4,17 @@
     <v-row>
       <v-col
         cols=12
-        sm=6
+        sm=4
       >
         <v-img
           :src="`${$axios.defaults.baseURL}${dogData.thumbnail_path}`"
           alt="thumbnail"
-          width="300px"
+          width="350px"
         />
       </v-col>
       <v-col
         cols=12
-        sm=6
+        sm=8
       >
         <table>
           <tbody>
