@@ -24,17 +24,17 @@ jobs:
           name: Run tests
           command: yarn test
 
-  # deploy:
-  #   #実行時に使用するimage指定
-  #   executor: heroku/default
-  #   steps:
-  #     - checkout
-  #     - heroku/install
-  #     - run:
-  #         command: >
-  #           echo "The command above installs Heroku, the command below deploys.
-  #           What you do inbetween is up to you!"
-  #     - heroku/deploy-via-git
+  deploy:
+    #実行時に使用するimage指定
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          command: >
+            echo "The command above installs Heroku, the command below deploys.
+            What you do inbetween is up to you!"
+      - heroku/deploy-via-git
 
 orbs:
   heroku: circleci/heroku@1.2.6
@@ -49,6 +49,6 @@ workflows:
               only:
                 - main
                 - master
-      # - deploy:
-      #     requires: # testが成功したら実行する
-      #       - test
+      - deploy:
+          requires: # testが成功したら実行する
+            - test
