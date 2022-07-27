@@ -22,8 +22,7 @@ jobs:
 
       - run:
           name: Run tests
-          # command: yarn test
-          command: npm run test
+          command: yarn test
 
   deploy:
     #実行時に使用するimage指定
