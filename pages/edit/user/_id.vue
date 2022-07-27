@@ -80,8 +80,18 @@ export default {
           password: this.password
         }
         await this.$axios.post(`${this.$axios.defaults.baseURL}api/auth/update/${this.$route.params.id}`, sendData);
-        alert('登録内容の変更が完了しました');
-        location.reload();
+        alert('登録内容の変更が完了しました。再ログインしてください');
+
+        // ログアウト
+        try {
+          await this.$auth.logout();
+          // Vuex内のデータ破棄
+          this.$store.commit('deleteFavoriteDog');
+
+          this.$router.push("/login");
+          } catch (error) {
+            console.log(error);
+          }
       } catch(error) {
         alert('エラー');
       }
