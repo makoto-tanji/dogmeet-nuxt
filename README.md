@@ -1,4 +1,23 @@
-# dogmeet-nuxt
+# dogmeet
+
+## 概要
+
+DogMeet
+
+わんちゃん情報共有サービス
+
+# バージョン
+
+PHP  8.1.2
+
+Laravel  Framework 9.15.0
+
+mysql  Ver 15.1 Distrib 10.4.22-MariaDB
+
+Vue.js  vue@2.6.14
+
+Nuxt.js  nuxt@2.15.8
+
 
 ## Build Setup
 
